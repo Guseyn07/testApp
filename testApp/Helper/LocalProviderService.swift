@@ -7,22 +7,42 @@
 
 import Foundation
 
+enum CurrencyType: String {
+    case USD
+    case AUD
+    case GBP
+    case CAD
+    
+    var symbol: String {
+        switch self {
+        case .USD:
+            return "$"
+        case .AUD:
+            return "A$"
+        case .GBP:
+            return "£"
+        case .CAD:
+            return "CA$"
+        }
+    }
+}
+
 class LocalProviderService {
     
-
+    
     static let shared: LocalProviderService = { LocalProviderService() }()
     
-// MARK: Parse data
+    // MARK: Parse data
     private var allRatesResponse: [RateResponseModel] = []
     private var allTransactionsResponse: [TransactionResponseModel] = []
     
-// MARK: Ready data
+    // MARK: Ready data
     var allProducts: [ProductModel] = []
     var selectedProductTransactions: [TransactionModel] = []
     
     var totalAmountForSelectedTransactions = 0.0
     
-// MARK: FOR Products SCREEN
+    // MARK: FOR Products SCREEN
     func getAllTransactionsList(completion: @escaping ((String?) -> Void)) {
         Parser.shared.parseTransactionData { [weak self] result in
             switch result {
@@ -46,7 +66,7 @@ class LocalProviderService {
         }
     }
     
-// MARK: FOR Transactions SCREEN
+    // MARK: FOR Transactions SCREEN
     func getTransactions(for sku: String, completion: @escaping ((String?) -> Void)) {
         guard allRatesResponse.isEmpty else {
             calculateTransactions(sku: sku)
@@ -67,20 +87,39 @@ class LocalProviderService {
     }
     
     func calculateTransactions(sku: String) {
-        let transactions = allTransactionsResponse.filter { $0.sku != sku }
+        let transactions = allTransactionsResponse.filter { $0.sku == sku }
         
         transactions.forEach { transaction in
             let amount = Double(transaction.amount) ?? 0
             var selectedProductTransaction = TransactionModel(amount: amount,
+                                                              amountGBP: amount,
                                                               currency: transaction.currency)
             
-            if transaction.currency != "GBP" {
-                if let rateString = allRatesResponse.first(where: { $0.from == transaction.currency && $0.to == "GBP" })?.rate, let rate = Double(rateString) {
-                    selectedProductTransaction.rate = rate
+            if transaction.currency != CurrencyType.GBP.rawValue {
+                if let rateString = allRatesResponse
+                    .first(where: { $0.from == transaction.currency && $0.to == CurrencyType.GBP.rawValue })?.rate,
+                   let rate = Double(rateString) {
+                    selectedProductTransaction.amountGBP = amount * rate
+                    
+                } else if let rateString = allRatesResponse
+                    .first(where: {
+                        $0.from == transaction.currency && $0.to == CurrencyType.USD.rawValue
+                    })?
+                    .rate, let rate = Double(rateString) {
+                    
+                    let usdSum = amount * rate
+                    if let usdRateString = allRatesResponse
+                        .first(where: {
+                            $0.from == CurrencyType.USD.rawValue && $0.to == CurrencyType.GBP.rawValue
+                        })?
+                        .rate, let usdRate = Double(usdRateString) {
+                        selectedProductTransaction.amountGBP = usdSum * usdRate
+                    }
                 }
             }
+            
             selectedProductTransactions.append(selectedProductTransaction)
-            self.totalAmountForSelectedTransactions += amount
+            self.totalAmountForSelectedTransactions += selectedProductTransaction.amountGBP
         }
     }
 }

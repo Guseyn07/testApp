@@ -35,11 +35,16 @@ class TransactionsViewController: UIViewController {
             if error != nil {
                 AlertUtility.showError(message: error!, fromVC: self)
             } else {
-                self.activity.stopAnimating()
-                self.totalAmountLabel.text = "Total: \(LocalProviderService.shared.totalAmountForSelectedTransactions)"
-                self.tableView.reloadData()
+                self.reload()
             }
         }
+    }
+    
+    private func reload() {
+        self.activity.stopAnimating()
+        let totalAmount = LocalProviderService.shared.totalAmountForSelectedTransactions
+        self.totalAmountLabel.text = "Total: " + String(format: "%.2f", totalAmount)
+        self.tableView.reloadData()
     }
 }
 
@@ -53,7 +58,7 @@ extension TransactionsViewController: UITableViewDelegate, UITableViewDataSource
         let cell: GenerealTableViewCell = tableView.cell()
         let model = LocalProviderService.shared.selectedProductTransactions[indexPath.row]
         cell.setupCell(firstText: model.amountString,
-                       secondText: model.amountGBP,
+                       secondText: model.amountGBPString,
                        accessoryType: .disclosureIndicator)
         return cell
     }
