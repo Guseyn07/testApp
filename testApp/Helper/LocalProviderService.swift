@@ -13,8 +13,8 @@ class LocalProviderService {
     static let shared: LocalProviderService = { LocalProviderService() }()
     
 // MARK: Parse data
-    private var allRatesResponse = Set<RateResponseModel>()
-    private var allTransactionsResponse = Set<TransactionResponseModel>()
+    private var allRatesResponse: [RateResponseModel] = []
+    private var allTransactionsResponse: [TransactionResponseModel] = []
     
 // MARK: Ready data
     var allProducts: [ProductModel] = []

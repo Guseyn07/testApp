@@ -15,7 +15,7 @@ class Parser {
         case decodeError
     }
     
-    func parseRateData(completion: @escaping (Result<Set<RateResponseModel>, Error>) -> Void) {
+    func parseRateData(completion: @escaping (Result<[RateResponseModel], Error>) -> Void) {
         guard let url = Bundle.main.url(forResource: "rates", withExtension: "plist") else { return }
         do {
             let data = try Data(contentsOf: url)
@@ -23,13 +23,13 @@ class Parser {
                 completion(.failure(ParserError.decodeError))
                 return
             }
-            completion(.success(Set(result)))
+            completion(.success(result))
         } catch let error {
             completion(.failure(error))
         }
     }
     
-    func parseTransactionData(completion: @escaping (Result<Set<TransactionResponseModel>, Error>) -> Void) {
+    func parseTransactionData(completion: @escaping (Result<[TransactionResponseModel], Error>) -> Void) {
         guard let url = Bundle.main.url(forResource: "transactions", withExtension: "plist") else { return }
         do {
             let data = try Data(contentsOf: url)
@@ -37,7 +37,7 @@ class Parser {
                 completion(.failure(ParserError.decodeError))
                 return
             }
-            completion(.success(Set(result)))
+            completion(.success(result))
         } catch let error {
             completion(.failure(error))
         }
