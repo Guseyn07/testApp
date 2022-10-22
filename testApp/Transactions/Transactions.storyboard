@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3tl-2F-Fa3">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Transactions View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="TransactionsViewController" customModule="testApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gax-Fh-eml">
+                                <rect key="frame" x="0.0" y="116" width="390" height="694"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSL-Tf-9JC">
+                                <rect key="frame" x="0.0" y="91" width="390" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-2u-2nx">
+                                        <rect key="frame" x="16" y="2" width="368" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hpi-2u-2nx" secondAttribute="trailing" constant="6" id="7th-ZL-aMw"/>
+                                    <constraint firstItem="hpi-2u-2nx" firstAttribute="leading" secondItem="mSL-Tf-9JC" secondAttribute="leading" constant="16" id="JtW-h1-Wya"/>
+                                    <constraint firstAttribute="bottom" secondItem="hpi-2u-2nx" secondAttribute="bottom" constant="2" id="WdR-hP-zCp"/>
+                                    <constraint firstItem="hpi-2u-2nx" firstAttribute="top" secondItem="mSL-Tf-9JC" secondAttribute="top" constant="2" id="kcr-7f-84W"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lec-S8-6Cz">
+                                <rect key="frame" x="185" y="412" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="lec-S8-6Cz" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="8ms-Ch-Jyc"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="mSL-Tf-9JC" secondAttribute="trailing" id="K02-MV-4v5"/>
+                            <constraint firstItem="Gax-Fh-eml" firstAttribute="top" secondItem="mSL-Tf-9JC" secondAttribute="bottom" id="UyL-9I-CwP"/>
+                            <constraint firstItem="Gax-Fh-eml" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="XaR-lI-piX"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Gax-Fh-eml" secondAttribute="bottom" id="e1H-3N-Cs4"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Gax-Fh-eml" secondAttribute="trailing" id="q3h-RR-9HV"/>
+                            <constraint firstItem="lec-S8-6Cz" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="qKs-fV-hx8"/>
+                            <constraint firstItem="mSL-Tf-9JC" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="rMo-pr-l9f"/>
+                            <constraint firstItem="mSL-Tf-9JC" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="y4K-0L-UCf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="n7O-4X-LrT"/>
+                    <connections>
+                        <outlet property="activity" destination="lec-S8-6Cz" id="dc4-Mp-p2c"/>
+                        <outlet property="tableView" destination="Gax-Fh-eml" id="70g-AV-qUp"/>
+                        <outlet property="totalAmountLabel" destination="hpi-2u-2nx" id="1VE-nl-PbY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1040" y="3.5545023696682461"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="D0G-Ax-RHI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3tl-2F-Fa3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="V1h-V2-d1L">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="ydo-Su-D1a"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oiP-39-NCc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280" y="4"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
